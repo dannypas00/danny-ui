@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/vue3';
+import { type Preview, setup } from '@storybook/vue3';
 import '../src/tailwind.css';
 
 const preview: Preview = {
@@ -11,5 +11,15 @@ const preview: Preview = {
     },
   },
 };
+
+setup((app) => {
+  app.config.globalProperties.$page = {
+    route_parameters: {}, props: {
+      errors: {
+        'testerror': 'This is a test error message',
+      },
+    },
+  };
+});
 
 export default preview;
