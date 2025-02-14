@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build pages
-        run: npm run storybook-build
+        run: npm run build-storybook
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
