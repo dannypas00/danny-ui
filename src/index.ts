@@ -1,3 +1,7 @@
-import DefaultButton from './Components/Buttons/DefaultButton.vue';
+import DefaultButton from '@/Components/Buttons/DefaultButton.vue';
+import SimpleInput from '@/Components/Input/SimpleInput.vue';
 
-export { DefaultButton };
+export {
+  DefaultButton,
+  SimpleInput,
+};

@@ -12,14 +12,4 @@ const preview: Preview = {
   },
 };
 
-setup((app) => {
-  app.config.globalProperties.$page = {
-    route_parameters: {}, props: {
-      errors: {
-        'testerror': 'This is a test error message',
-      },
-    },
-  };
-});
-
 export default preview;

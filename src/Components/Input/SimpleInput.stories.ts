@@ -28,7 +28,7 @@ export const Primary: Story = {
       '<span data-testid="test">{{ value }}</span>',
   }),
   play: async ({ canvasElement, args, component }) => {
-    const input = canvasElement.querySelector('input');
+    const input = canvasElement.querySelector('input') as HTMLInputElement;
     const output = within(canvasElement).getByTestId('test');
 
     await expect(output).toBeEmptyDOMElement();
@@ -52,6 +52,6 @@ export const WithError: Story = {
 
     await expect(canvasElement.querySelector('span')).toHaveTextContent('This is a test error message');
 
-    await Primary.play(context);
+    await Primary.play?.(context);
   },
 };

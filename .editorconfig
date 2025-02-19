@@ -11,7 +11,7 @@ ij_formatter_off_tag = @formatter:off
 ij_formatter_on_tag = @formatter:on
 ij_formatter_tags_enabled = true
 ij_smart_tabs = false
-ij_visual_guides = 
+ij_visual_guides =
 ij_wrap_on_typing = false
 
 [*.vue]
@@ -49,7 +49,7 @@ ij_typescript_array_initializer_wrap = off
 ij_typescript_assignment_wrap = off
 ij_typescript_binary_operation_sign_on_next_line = false
 ij_typescript_binary_operation_wrap = off
-ij_typescript_blacklist_imports = rxjs/Rx,node_modules/**,**/node_modules/**,@angular/material,@angular/material/typings/**
+ij_typescript_blacklist_imports = rxjs/Rx, node_modules/**, **/node_modules/**, @angular/material, @angular/material/typings/**
 ij_typescript_blank_lines_after_imports = 1
 ij_typescript_blank_lines_around_class = 1
 ij_typescript_blank_lines_around_field = 0
@@ -76,7 +76,7 @@ ij_typescript_enforce_trailing_comma = whenmultiline
 ij_typescript_enum_constants_wrap = on_every_item
 ij_typescript_extends_keyword_wrap = normal
 ij_typescript_extends_list_wrap = on_every_item
-ij_typescript_field_prefix = 
+ij_typescript_field_prefix =
 ij_typescript_file_name_style = pascal_case
 ij_typescript_finally_on_new_line = false
 ij_typescript_for_brace_force = never
@@ -122,7 +122,7 @@ ij_typescript_prefer_explicit_types_function_expression_returns = false
 ij_typescript_prefer_explicit_types_function_returns = true
 ij_typescript_prefer_explicit_types_vars_fields = true
 ij_typescript_prefer_parameters_wrap = false
-ij_typescript_property_prefix = 
+ij_typescript_property_prefix =
 ij_typescript_reformat_c_style_comments = true
 ij_typescript_space_after_colon = true
 ij_typescript_space_after_comma = true
@@ -206,3 +206,7 @@ ij_typescript_var_declaration_wrap = normal
 ij_typescript_while_brace_force = never
 ij_typescript_while_on_new_line = false
 ij_typescript_wrap_comments = true
+
+[*.json]
+indent_size = 2
+tab_width = 2
