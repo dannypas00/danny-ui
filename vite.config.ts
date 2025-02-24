@@ -28,6 +28,7 @@ export default defineConfig({
       name: 'DannyUi', //  Name exposed by the library
       // the proper extensions will be added
       fileName: 'danny-ui',  // Output file name (without extension)
+      formats: ['es'],
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
