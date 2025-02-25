@@ -19,8 +19,8 @@ jobs:
             - run: npm version ${{ github.event.release.tag_name }}
             - run: npm ci
             - run: |
-                  git config --local user.email "action@github.com"
-                  git config --local user.name "GitHub Action"
+                  git config user.email "action@github.com"
+                  git config user.name "GitHub Action"
                   git add package.json package-lock.json
                   git commit -m "Release version ${{ github.event.release.tag_name }}"
                   git push origin HEAD:master
