@@ -16,7 +16,14 @@ jobs:
               with:
                   node-version-file: '.nvmrc'
                   registry-url: 'https://registry.npmjs.org'
+            - run: npm version ${{ github.event.release.tag_name }}
             - run: npm ci
+            - run: |
+                  git config --local user.email "action@github.com"
+                  git config --local user.name "GitHub Action"
+                  git add package.json package-lock.json
+                  git commit -m "Release version ${{ github.event.release.tag_name }}"
+                  git push origin HEAD:master
             - run: npm publish --provenance --access public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
