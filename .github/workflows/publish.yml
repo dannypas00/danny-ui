@@ -19,7 +19,7 @@ jobs:
             - run: |
                   git config --global user.email "action@github.com"
                   git config --global user.name "GitHub Action"
-            - run: npm version ${{ github.event.release.tag_name }}
+            - run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
             - run: npm ci
             - run: |
                   git add package.json package-lock.json
