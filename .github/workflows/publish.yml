@@ -16,11 +16,12 @@ jobs:
               with:
                   node-version-file: '.nvmrc'
                   registry-url: 'https://registry.npmjs.org'
+            - run: |
+                  git config --global user.email "action@github.com"
+                  git config --global user.name "GitHub Action"
             - run: npm version ${{ github.event.release.tag_name }}
             - run: npm ci
             - run: |
-                  git config user.email "action@github.com"
-                  git config user.name "GitHub Action"
                   git add package.json package-lock.json
                   git commit -m "Release version ${{ github.event.release.tag_name }}"
                   git push origin HEAD:master
