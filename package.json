@@ -13,6 +13,7 @@
     "test:lint": "oxlint . --deny-warnings -D correctness --ignore-path .gitignore",
     "test:format": "prettier --check src/",
     "test:types": "vue-tsc --noEmit",
+    "test:ci": "run-p test:lint test:format test:types test:unit test:storybook",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "oxlint . --fix -D correctness --ignore-path .gitignore",
