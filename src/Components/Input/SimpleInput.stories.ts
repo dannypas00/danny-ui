@@ -44,7 +44,7 @@ export const Primary: Story = {
 export const WithError: Story = {
   ...Primary,
   args: {
-    identifier: 'testerror',
+    error: 'This is a test error message',
   },
   play: async ({ canvasElement, context }) => {
     const input = canvasElement.querySelector('input');
