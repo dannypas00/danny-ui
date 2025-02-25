@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import vueDevTools from 'vite-plugin-vue-devtools';
 import dts from 'vite-plugin-dts';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,6 +15,7 @@ export default defineConfig({
       rollupTypes: true,
       strictOutput: true,
     }),
+    tailwindcss(),
   ],
   resolve: {
     alias: {
