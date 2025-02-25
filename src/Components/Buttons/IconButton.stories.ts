@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import IconButton from './IconButton.vue';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, within } from '@storybook/test';
 import type { FontAwesomeIconProps } from '@fortawesome/vue-fontawesome';
 
 const meta: Meta<typeof IconButton> = {
@@ -57,8 +57,8 @@ export const NoText: Story = {
 export const CustomColours: Story = {
   ...Primary,
   args: {
-    icon: { icon: 'fa-plus'} as FontAwesomeIconProps,
-    class: 'bg-[#ff0000] text-white'
+    icon: { icon: 'fa-plus' } as FontAwesomeIconProps,
+    class: 'bg-[#ff0000] text-white',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -66,5 +66,5 @@ export const CustomColours: Story = {
     const button = canvas.getByRole('button');
     await expect(button).toHaveClass('bg-[#ff0000] text-white');
     await expect(button).toHaveStyle('background-color: rgb(255, 0, 0);');
-  }
+  },
 };

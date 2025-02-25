@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import SubmitButton from './SubmitButton.vue';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, within } from '@storybook/test';
 
 const meta: Meta<typeof SubmitButton> = {
   component: SubmitButton,

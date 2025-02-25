@@ -11,10 +11,9 @@
     "test:unit": "vitest",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
-    "lint:eslint": "eslint . --fix",
-    "lint": "run-s lint:*",
+    "lint": "oxlint . --fix -D correctness --ignore-path .gitignore",
     "format": "prettier --write src/",
+    "fix-ci": "run-s format lint type-check",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

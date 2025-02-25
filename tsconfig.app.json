@@ -6,6 +6,7 @@
     "src/**/*.vue"
   ],
   "exclude": [
+    "storybook-static",
     "node_modules",
     "dist",
     "src/**/__tests__/*",

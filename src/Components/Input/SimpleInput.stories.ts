@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/vue3';
 
 import SimpleInput from './SimpleInput.vue';
-import { type Ref, ref } from 'vue';
+import { ref } from 'vue';
 import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta<typeof SimpleInput> = {
@@ -24,10 +24,11 @@ export const Primary: Story = {
       const value = ref('');
       return { args, value };
     },
-    template: '<SimpleInput :identifier="args.identifier" v-model="value" v-bind="args" />' +
+    template:
+      '<SimpleInput :identifier="args.identifier" v-model="value" v-bind="args" />' +
       '<span data-testid="test">{{ value }}</span>',
   }),
-  play: async ({ canvasElement, args, component }) => {
+  play: async ({ canvasElement }) => {
     const input = canvasElement.querySelector('input') as HTMLInputElement;
     const output = within(canvasElement).getByTestId('test');
 
@@ -50,7 +51,9 @@ export const WithError: Story = {
 
     await expect(input).toHaveAttribute('aria-invalid', 'true');
 
-    await expect(canvasElement.querySelector('span')).toHaveTextContent('This is a test error message');
+    await expect(canvasElement.querySelector('span')).toHaveTextContent(
+      'This is a test error message',
+    );
 
     await Primary.play?.(context);
   },
