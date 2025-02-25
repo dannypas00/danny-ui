@@ -1,8 +1,21 @@
-name: 'Storybook Tests'
+name: Run tests
 
 on: push
 
 jobs:
+    ci:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+            - name: Install dependencies
+              run: npm ci
+            - run: npm run test:lint
+            - run: npm run test:format
+            - run: npm run test:types
+
     test:
         timeout-minutes: 60
         runs-on: ubuntu-latest
