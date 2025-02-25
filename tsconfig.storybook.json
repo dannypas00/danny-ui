@@ -1,0 +1,31 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "noCheck": true,
+    // Or "react-jsx" if you are using React-style JSX in MDX
+    "jsx": "preserve",
+    // Important: Allow JavaScript files (Storybook might use JS)
+    "allowJs": true,
+    // Ensure compatibility
+    "esModuleInterop": true,
+    // very important, skip the checks for library files
+    "skipLibCheck": true
+  },
+  "include": [
+    // Include your library's source (for Storybook to see it)
+    "src/**/*.ts",
+    // Include TSX files if you have them
+    "src/**/*.tsx",
+    // Include Vue files
+    "src/**/*.vue",
+    // Include story files
+    "src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+    // Include Storybook configuration files
+    ".storybook/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+  // Exclude node_modules and dist
+}

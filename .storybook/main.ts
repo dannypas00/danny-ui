@@ -18,6 +18,9 @@ const config: StorybookConfig = {
   },
   core: {
     disableTelemetry: true,
-  }
+  },
+  typescript: {
+    check: false, // Disable Storybook's built-in type checking (we're using vue-tsc)
+  },
 };
 export default config;
