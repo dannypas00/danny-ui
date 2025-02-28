@@ -22,17 +22,37 @@ export const Primary: Story = {
     setup() {
       return { args };
     },
-    template: '<DefaultButton v-bind="args" />',
+    template: '<DefaultButton v-bind="args">{{ args.slot }}</DefaultButton>',
   }),
   args: {
-    //👇 The args you need here will depend on your component
+    slot: 'Testbutton',
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
     const button = canvas.getByRole('button');
-    await expect(button).toHaveTextContent('Clicked 0 times');
-    await userEvent.click(button);
-    await expect(button).toHaveTextContent('Clicked 1 times');
+    await expect(button).toHaveTextContent(args.slot);
   },
+};
+
+export const Secondary: Story = {
+  ...Primary,
+  args: {
+    class: 'bg-gray-200',
+    slot: 'Testlink',
+  }
+};
+
+export const LinkRole: Story = {
+  ...Primary,
+  args: {
+    role: 'link',
+    slot: 'Testlink',
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    const button = canvas.getByRole('link');
+    await expect(button).toHaveTextContent(args.slot);
+  }
 };

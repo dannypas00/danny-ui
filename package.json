@@ -35,7 +35,16 @@
       "import": "./dist/danny-ui.js"
     }
   },
+  "peerDependencies": {
+    "@dannypas00/tawildindcss-unimportant": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@dannypas00/tawildindcss-unimportant": {
+      "optional": true
+    }
+  },
   "dependencies": {
+    "@dannypas00/tailwindcss-unimportant": "^3.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",

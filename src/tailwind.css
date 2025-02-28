@@ -1,1 +1,2 @@
 @import 'tailwindcss';
+@plugin '@dannypas00/tailwindcss-unimportant';

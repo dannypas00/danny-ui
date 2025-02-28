@@ -1,13 +1,8 @@
 <template>
   <button
-    class="rounded-md px-2 py-1 text-sm border-2 border-gray-200 bg-gray-50 ring-offset-2 active:ring-1 active:ring-gray-500"
-    @click="count++"
+    :role="$attrs.role ?? 'button'"
+    class="cursor-pointer inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 -:text-white -:bg-indigo-600 -:hover:bg-indigo-500 -:focus-visible:outline-indigo-600"
   >
-    Clicked {{ count }} times
+    <slot />
   </button>
 </template>
-<script setup lang="ts">
-import { ref } from 'vue';
-
-const count = ref(0);
-</script>

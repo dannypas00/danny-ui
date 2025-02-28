@@ -21,19 +21,19 @@ export const Primary: Story = {
   render: (args) => ({
     components: { IconButton },
     setup() {
-      const text = 'Click me';
-      return { args, text };
+      return { args };
     },
-    template: '<IconButton v-bind="args">{{ text }}</IconButton>',
+    template: '<IconButton v-bind="args">{{ args.slot }}</IconButton>',
   }),
   args: {
+    slot: 'Click me!',
     icon: { icon: 'fa-plus' } as FontAwesomeIconProps,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
     const button = canvas.getByRole('button');
-    await expect(button).toHaveTextContent('Click me');
+    await expect(button).toHaveTextContent(args.slot);
   },
 };
 
@@ -59,6 +59,7 @@ export const CustomColours: Story = {
   args: {
     icon: { icon: 'fa-plus' } as FontAwesomeIconProps,
     class: 'bg-[#ff0000] text-white',
+    slot: 'Click me too!',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -66,5 +67,7 @@ export const CustomColours: Story = {
     const button = canvas.getByRole('button');
     await expect(button).toHaveClass('bg-[#ff0000] text-white');
     await expect(button).toHaveStyle('background-color: rgb(255, 0, 0);');
+
+    Primary?.play({ canvasElement });
   },
 };

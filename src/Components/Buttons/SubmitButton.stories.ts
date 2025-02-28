@@ -22,16 +22,14 @@ export const Primary: Story = {
     setup() {
       return { args };
     },
-    template: '<SubmitButton v-bind="args">Submit me</SubmitButton>',
+    template: '<SubmitButton v-bind="args">{{ args.slot }}</SubmitButton>',
   }),
   args: {
-    //👇 The args you need here will depend on your component
+    slot: 'Submit me',
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const button = canvas.getByRole('button');
-    await expect(button).toHaveTextContent('Submit me');
+  play: async ({ canvasElement, args }) => {
+    const button = within(canvasElement).getByRole('button');
+    await expect(button).toHaveTextContent(args.slot);
     await expect(button).toHaveAttribute('type', 'submit');
   },
 };
@@ -40,6 +38,7 @@ export const Coloured: Story = {
   ...Primary,
   args: {
     class: 'bg-[#ff0000] text-white',
+    slot: 'Submit me',
   },
   play: async ({ canvasElement, context }) => {
     const canvas = within(canvasElement);
