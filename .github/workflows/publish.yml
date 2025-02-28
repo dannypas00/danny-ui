@@ -1,35 +1,38 @@
 name: Publish Package to npmjs
 on:
     release:
-        types: [published]
-
-permissions:
-    contents: write
-    id-token: write
+        types: [ published ]
 
 jobs:
     build:
         environment: deployment
         runs-on: ubuntu-latest
         permissions:
-            contents: read
+            contents: write
             id-token: write
         steps:
-            - uses: actions/checkout@v4
+            -   uses: actions/checkout@v4
+                name: Checkout
             # Setup .npmrc file to publish to npm
-            - uses: actions/setup-node@v4
-              with:
-                  node-version-file: '.nvmrc'
-                  registry-url: 'https://registry.npmjs.org'
-            - run: |
-                  git config --global user.email "action@github.com"
-                  git config --global user.name "GitHub Action"
-            - run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
-            - run: npm ci
-            - run: |
-                  git add package.json package-lock.json
-                  git commit -m "Release version ${{ github.event.release.tag_name }}"
-                  git push https://${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY HEAD:master
-            - run: npm publish --provenance --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            -   uses: actions/setup-node@v4
+                name: Setup Node.js
+                with:
+                    node-version-file: '.nvmrc'
+                    registry-url: 'https://registry.npmjs.org'
+            -   name: Set git config
+                run: |
+                    git config --global user.email "action@github.com"
+                    git config --global user.name "GitHub Action"
+            -   name: Tag node version
+                run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
+            -   name: NPM clean-install
+                run: npm ci
+            -   name: Push package tag to git
+                run: |
+                    git add package.json package-lock.json
+                    git commit -m "Release version ${{ github.event.release.tag_name }}"
+                    git push https://${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY HEAD:master
+            -   name: Publish tag on npmjs.com
+                run: npm publish --provenance --access public
+                env:
+                    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
