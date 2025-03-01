@@ -1,0 +1,6 @@
+*
+!.gitignore
+!fileTemplates
+!file.template.settings.xml
+!prettier.xml
+!vcs.xml
