@@ -1,8 +1,8 @@
 import { type Meta, type StoryObj } from '@storybook/vue3';
 
-import SimpleInput, { type SimpleInputProps } from './SimpleInput.vue';
-import { ref } from 'vue';
 import { expect, userEvent, within } from '@storybook/test';
+import { ref } from 'vue';
+import SimpleInput, { type SimpleInputProps } from './SimpleInput.vue';
 
 const meta: Meta<typeof SimpleInput> = {
   component: SimpleInput,

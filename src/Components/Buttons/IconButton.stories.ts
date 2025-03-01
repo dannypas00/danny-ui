@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import IconButton, { IconButtonProps } from './IconButton.vue';
-import { expect, within } from '@storybook/test';
 import type { FontAwesomeIconProps } from '@fortawesome/vue-fontawesome';
+import { expect, within } from '@storybook/test';
+import IconButton, { IconButtonProps } from './IconButton.vue';
 
 const meta: Meta<typeof IconButton> = {
   component: IconButton,

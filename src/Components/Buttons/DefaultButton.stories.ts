@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import DefaultButton from './DefaultButton.vue';
 import { expect, within } from '@storybook/test';
+import DefaultButton from './DefaultButton.vue';
 
 const meta: Meta<typeof DefaultButton> = {
   component: DefaultButton,

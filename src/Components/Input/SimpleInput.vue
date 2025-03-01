@@ -59,10 +59,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type InputTypeHTMLAttribute } from 'vue';
 import CircleIcon from '@/Components/Icons/CircleIcon.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { type IconProps } from '@/types/IconProps';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { computed, type InputTypeHTMLAttribute } from 'vue';
 
 export interface SimpleInputProps {
   label?: string;

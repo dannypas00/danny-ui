@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import CircleIcon, { type CircleIconProps } from './CircleIcon.vue';
-import { within } from '@storybook/test';
 
 const meta: Meta<typeof CircleIcon> = {
   component: CircleIcon,
