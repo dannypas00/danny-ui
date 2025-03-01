@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import ModalDialog, { type ModalDialogProps } from './ModalDialog.vue';
 import { expect, userEvent, within } from '@storybook/test';
 import DefaultButton from '../Buttons/DefaultButton.vue';
+import ModalDialog, { type ModalDialogProps } from './ModalDialog.vue';
 
 const meta: Meta<typeof ModalDialog> = {
   components: { DefaultButton },
@@ -24,11 +24,12 @@ export const Primary: Story = {
     setup() {
       return { args };
     },
-    template: '<ModalDialog data-testid="component" v-model:open="args.open" v-bind="args">' +
+    template:
+      '<ModalDialog data-testid="component" v-model:open="args.open" v-bind="args">' +
       '<span data-testid="content">{{ args.content }}</span>' +
       '<template #footer><DefaultButton data-testid="footer" @click="() => args.open = false">Close</DefaultButton></template>' +
       '</ModalDialog>' +
-      '<DefaultButton data-testid="open-button" @click="() => args.open = !args.open">Open</DefaultButton>'
+      '<DefaultButton data-testid="open-button" @click="() => args.open = !args.open">Open</DefaultButton>',
   }),
   args: {
     title: 'Modal title',
@@ -47,7 +48,7 @@ export const Primary: Story = {
     await userEvent.click(openButton);
     await expect(args.open).toBe(true);
 
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 300));
     let modal = within(document.querySelector('[data-testid="component"]'));
 
     await expect(await modal.findByText(args.title)).toBeInTheDocument();
@@ -59,7 +60,7 @@ export const Primary: Story = {
     await expect(closeButton).toBeVisible();
     await userEvent.click(closeButton);
 
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 300));
     await expect(content).not.toBeVisible();
     await expect(args.open).toBe(false);
 
@@ -67,16 +68,78 @@ export const Primary: Story = {
     await userEvent.click(canvas.getByTestId('open-button'));
     await expect(args.open).toBe(true);
 
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 300));
     modal = within(document.querySelector('[data-testid="component"]'));
     content = modal.getByTestId('content');
     await expect(content).toBeVisible();
 
     await userEvent.click();
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 300));
     await expect(content).not.toBeVisible();
     await expect(args.open).toBe(false);
 
     await userEvent.click(openButton);
-  }
+  },
+};
+
+export const PreventClickoff: Story = {
+  ...Primary,
+  args: {
+    ...Primary.args,
+    preventClickoff: true,
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const openButton = canvas.getByTestId('open-button');
+
+    // Happy flow
+    await userEvent.click(openButton);
+    await expect(args.open).toBe(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    let modal = within(document.querySelector('[data-testid="component"]'));
+
+    await expect(await modal.findByText(args.title)).toBeInTheDocument();
+
+    let content = modal.getByTestId('content');
+    await expect(content).toBeVisible();
+
+    const closeButton = modal.getByTestId('footer');
+    await expect(closeButton).toBeVisible();
+    await userEvent.click(closeButton);
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    await expect(content).not.toBeVisible();
+    await expect(args.open).toBe(false);
+
+    // Clickoff
+    await userEvent.click(canvas.getByTestId('open-button'));
+    await expect(args.open).toBe(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    modal = within(document.querySelector('[data-testid="component"]'));
+    content = modal.getByTestId('content');
+    await expect(content).toBeVisible();
+
+    await userEvent.click();
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    await expect(content).toBeVisible();
+    await expect(args.open).toBe(true);
+  },
+};
+
+export const Minimal: Story = {
+  render: (args: ModalDialogProps) => ({
+    components: { ModalDialog, DefaultButton },
+    setup() {
+      return { args };
+    },
+    template:
+      '<ModalDialog data-testid="component" v-model:open="args.open" v-bind="args"/>' +
+      '<DefaultButton data-testid="open-button" @click="() => args.open = !args.open">Open</DefaultButton>',
+  }),
+  args: {
+    open: false,
+    title: 'Modal title',
+  },
 };

@@ -1,6 +1,12 @@
 <template>
   <TransitionRoot :show="open" as="template">
-    <Dialog as="div" class="relative z-10" @close="closeModal">
+    <Dialog
+      :initial-focus
+      :static="preventClickoff"
+      as="div"
+      class="relative z-10"
+      @close="closeModal"
+    >
       <TransitionChild
         as="template"
         enter="ease-out duration-300"
@@ -32,25 +38,25 @@
               <div class="sm:flex sm:items-start">
                 <div
                   v-if="icon"
-                  class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-blue-700 sm:mx-0 sm:size-10"
+                  class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-blue-700 sm:mx-0 sm:size-10 sm:mr-4"
                 >
                   <FontAwesomeIcon size="xl" v-bind="icon" />
                 </div>
 
-                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                <div class="mt-3 text-center sm:mt-0 sm:text-left">
                   <DialogTitle as="h3" class="text-base font-semibold text-gray-900">
                     {{ title }}
                   </DialogTitle>
 
-                  <div class="mt-2">
+                  <div v-if="$slots.default" class="mt-2">
                     <p class="text-sm text-gray-500">
                       <slot />
                     </p>
                   </div>
                 </div>
               </div>
-              <div class="mt-5 w-full flex flex-row-reverse">
-                <slot v-if="$slots.footer" name="footer" />
+              <div v-if="$slots.footer" class="mt-5 w-full flex flex-row-reverse" >
+                <slot name="footer" />
               </div>
             </DialogPanel>
           </TransitionChild>
@@ -68,10 +74,14 @@ import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } fro
 export interface ModalDialogProps {
   title: string;
   icon?: IconProps;
+  preventClickoff?: boolean;
+  initialFocus?: HTMLElement;
 }
 
-withDefaults(defineProps<ModalDialogProps>(), {
+const props = withDefaults(defineProps<ModalDialogProps>(), {
   icon: undefined,
+  preventClickoff: false,
+  initialFocus: undefined,
 });
 
 const open = defineModel('open', {
@@ -79,7 +89,9 @@ const open = defineModel('open', {
   required: true,
 });
 
-function closeModal(arg) {
-  open.value = arg;
+function closeModal(value) {
+  if (!props.preventClickoff) {
+    open.value = value;
+  }
 }
 </script>
