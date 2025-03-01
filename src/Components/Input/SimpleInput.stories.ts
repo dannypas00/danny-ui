@@ -52,7 +52,9 @@ export const Error: Story = {
 
     await expect(input).toHaveAttribute('aria-invalid', 'true');
 
-    await expect(await within(canvasElement).findByTestId('error-message')).toHaveTextContent(args.error);
+    await expect(await within(canvasElement).findByTestId('error-message')).toHaveTextContent(
+      args.error,
+    );
 
     await Primary.play?.(context);
   },
@@ -97,7 +99,9 @@ export const InfoError: Story = {
 
     await expect(input).toHaveAttribute('aria-invalid', 'true');
 
-    await expect(await within(canvasElement).findByTestId('error-message')).toHaveTextContent(args.error);
+    await expect(await within(canvasElement).findByTestId('error-message')).toHaveTextContent(
+      args.error,
+    );
 
     await Primary.play?.(context);
   },
