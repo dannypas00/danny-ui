@@ -23,12 +23,10 @@ concurrency:
 
 jobs:
     test:
-        uses: ./.github/workflows/tests.yml@test
-    ci:
-        uses: ./.github/workflows/tests.yml@ci
+        uses: ./.github/workflows/tests.yml
     # Single deploy job since we're just deploying
     deploy:
-        needs: [test, ci]
+        needs: test
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}

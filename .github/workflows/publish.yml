@@ -5,11 +5,9 @@ on:
 
 jobs:
     test:
-        uses: ./.github/workflows/tests.yml@test
-    ci:
-        uses: ./.github/workflows/tests.yml@ci
+        uses: ./.github/workflows/tests.yml
     build:
-        needs: [test, ci]
+        needs: test
         environment: deployment
         runs-on: ubuntu-latest
         permissions:
