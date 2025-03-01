@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { type IconProps } from '@/types/IconProps';
+import type { IconProps } from '@/types/IconProps';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export interface CircleIconProps {
