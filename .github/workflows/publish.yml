@@ -4,7 +4,12 @@ on:
         types: [ published ]
 
 jobs:
+    test:
+        uses: ./.github/workflows/tests.yml@test
+    ci:
+        uses: ./.github/workflows/tests.yml@ci
     build:
+        needs: [test, ci]
         environment: deployment
         runs-on: ubuntu-latest
         permissions:
