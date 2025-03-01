@@ -55,7 +55,7 @@
                   </div>
                 </div>
               </div>
-              <div v-if="$slots.footer" class="mt-5 w-full flex flex-row-reverse" >
+              <div v-if="$slots.footer" class="mt-5 w-full flex flex-row-reverse">
                 <slot name="footer" />
               </div>
             </DialogPanel>
@@ -89,7 +89,7 @@ const open = defineModel('open', {
   required: true,
 });
 
-function closeModal(value) {
+function closeModal(value: boolean) {
   if (!props.preventClickoff) {
     open.value = value;
   }
