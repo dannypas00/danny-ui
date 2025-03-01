@@ -106,3 +106,26 @@ export const InfoError: Story = {
     await Primary.play?.(context);
   },
 };
+
+export const ErrorWarning: Story = {
+  ...Error,
+  args: {
+    ...Error.args,
+    ...Warning.args,
+  },
+  play: async ({ canvasElement, args, context }) => {
+    await expect(canvasElement.querySelector(`[title="${args.warning}"]`)).toBeNull();
+    await expect(await within(canvasElement).findByTitle(args.error)).toBeInTheDOM();
+
+    const input = canvasElement.querySelector('input');
+
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(input.parentElement).not.toHaveClass('ring-yellow-400');
+
+    await expect(await within(canvasElement).findByTestId('error-message')).toHaveTextContent(
+      args.error,
+    );
+
+    await Primary.play?.(context);
+  },
+};
