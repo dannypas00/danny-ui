@@ -1,6 +1,6 @@
 <template>
-  <TransitionRoot as="template" :show="open">
-    <Dialog as="div" class="relative z-10" @close="open = false">
+  <TransitionRoot :show="open" as="template">
+    <Dialog as="div" class="relative z-10" @close="closeModal">
       <TransitionChild
         as="template"
         enter="ease-out duration-300"
@@ -10,9 +10,7 @@
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div
-          class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-        />
+        <div class="fixed inset-0 backdrop-blur-[2px] transition-opacity" />
       </TransitionChild>
 
       <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -29,46 +27,30 @@
             leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <DialogPanel
-              class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
+              class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all w-screen sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
             >
-              <div>
-                <div class="mt-3 text-center sm:mt-5">
-                  <DialogTitle
-                    as="h3"
-                    class="text-base font-semibold leading-6 text-gray-900"
-                  >
+              <div class="sm:flex sm:items-start">
+                <div
+                  v-if="icon"
+                  class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-blue-700 sm:mx-0 sm:size-10"
+                >
+                  <FontAwesomeIcon size="xl" v-bind="icon" />
+                </div>
+
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <DialogTitle as="h3" class="text-base font-semibold text-gray-900">
                     {{ title }}
                   </DialogTitle>
+
                   <div class="mt-2">
-                    <slot name="content" />
+                    <p class="text-sm text-gray-500">
+                      <slot />
+                    </p>
                   </div>
                 </div>
               </div>
-              <div
-                class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3"
-              >
-                <button
-                  v-if="positive"
-                  type="button"
-                  class="inline-flex w-full justify-center rounded-md bg-brand px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:col-start-2"
-                  @click="
-                    open = false;
-                    $emit('positive');
-                  "
-                >
-                  {{ positive }}
-                </button>
-                <button
-                  v-if="negative"
-                  type="button"
-                  class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                  @click="
-                    open = false;
-                    $emit('negative');
-                  "
-                >
-                  {{ negative }}
-                </button>
+              <div class="mt-5 w-full flex flex-row-reverse">
+                <slot v-if="$slots.footer" name="footer" />
               </div>
             </DialogPanel>
           </TransitionChild>
@@ -78,36 +60,26 @@
   </TransitionRoot>
 </template>
 
-<script setup>
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  TransitionChild,
-  TransitionRoot,
-} from '@headlessui/vue';
+<script setup lang="ts">
+import type { IconProps } from '@/types/IconProps';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
-defineEmits(['positive', 'negative']);
+export interface ModalDialogProps {
+  title: string;
+  icon?: IconProps;
+}
+
+withDefaults(defineProps<ModalDialogProps>(), {
+  icon: undefined,
+});
 
 const open = defineModel('open', {
   type: Boolean,
   required: true,
 });
 
-defineProps({
-  positive: {
-    type: String,
-    required: false,
-    default: undefined,
-  },
-  negative: {
-    type: String,
-    required: false,
-    default: undefined,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-});
+function closeModal(arg) {
+  open.value = arg;
+}
 </script>
