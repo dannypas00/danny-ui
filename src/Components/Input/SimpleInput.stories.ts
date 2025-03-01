@@ -44,6 +44,7 @@ export const Primary: Story = {
 export const Error: Story = {
   ...Primary,
   args: {
+    ...Primary.args,
     error: 'This is a test error message',
   },
   play: async ({ canvasElement, context }) => {
@@ -62,6 +63,7 @@ export const Error: Story = {
 export const Explanation: Story = {
   ...Primary,
   args: {
+    ...Primary.args,
     explanation: 'This is a test explanation message',
   },
   play: async ({ canvasElement, args, context }) => {
@@ -74,6 +76,7 @@ export const Explanation: Story = {
 export const Warning: Story = {
   ...Primary,
   args: {
+    ...Primary.args,
     warning: 'This is a test warning message',
   },
   play: async ({ canvasElement, args, context }) => {

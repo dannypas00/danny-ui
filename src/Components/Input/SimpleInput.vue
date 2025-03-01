@@ -21,6 +21,7 @@
             :aria-invalid="error ? 'true' : 'false'"
             :autocomplete
             :name="identifier"
+            :placeholder
             :required
             :type
             class="text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 w-full focus:outline-none"
@@ -62,7 +63,7 @@
 import CircleIcon from '@/Components/Icons/CircleIcon.vue';
 import type { IconProps } from '@/types/IconProps';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { type InputTypeHTMLAttribute, computed } from 'vue';
+import { computed, type InputTypeHTMLAttribute } from 'vue';
 
 export interface SimpleInputProps {
   label?: string;
