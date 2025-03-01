@@ -207,6 +207,6 @@ ij_typescript_while_brace_force = never
 ij_typescript_while_on_new_line = false
 ij_typescript_wrap_comments = true
 
-[*.json]
+[*.{json,yml,yaml}]
 indent_size = 2
 tab_width = 2
