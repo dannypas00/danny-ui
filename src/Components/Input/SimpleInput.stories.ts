@@ -47,14 +47,12 @@ export const Error: Story = {
     ...Primary.args,
     error: 'This is a test error message',
   },
-  play: async ({ canvasElement, context }) => {
+  play: async ({ canvasElement, args, context }) => {
     const input = canvasElement.querySelector('input');
 
     await expect(input).toHaveAttribute('aria-invalid', 'true');
 
-    await expect(canvasElement.querySelector('span')).toHaveTextContent(
-      'This is a test error message',
-    );
+    await expect(await within(canvasElement).findByTestId('error-message')).toHaveTextContent(args.error);
 
     await Primary.play?.(context);
   },
@@ -92,8 +90,15 @@ export const InfoError: Story = {
     ...Error.args,
     ...Explanation.args,
   },
-  play: async ({ context }) => {
-    await Explanation.play?.(context);
-    await Error.play?.(context);
+  play: async ({ canvasElement, args, context }) => {
+    await expect(within(canvasElement).getByTitle(args.explanation)).toBeInTheDOM();
+
+    const input = canvasElement.querySelector('input');
+
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+
+    await expect(await within(canvasElement).findByTestId('error-message')).toHaveTextContent(args.error);
+
+    await Primary.play?.(context);
   },
 };

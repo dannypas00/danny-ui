@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <span v-if="error" class="text-sm text-red-500">
+      <span v-if="error" class="text-sm text-red-500" data-testid="error-message">
         {{ error }}
       </span>
     </div>
