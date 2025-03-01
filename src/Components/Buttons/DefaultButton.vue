@@ -8,9 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-import { withDefaults } from 'vue';
-import { defineProps } from 'vue';
-
 export interface DefaultButtonProps {
   role?: string;
 }

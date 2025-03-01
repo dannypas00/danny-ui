@@ -2,10 +2,11 @@ import { type Meta, type StoryObj } from '@storybook/vue3';
 
 import SimpleInput, { type SimpleInputProps } from './SimpleInput.vue';
 import { ref } from 'vue';
-import { expect, userEvent } from '@storybook/test';
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta<typeof SimpleInput> = {
   component: SimpleInput,
+  decorators: [() => ({ template: '<div class="w-1/4"><story /></div>' })],
 };
 
 //👇 This default export determines where your story goes in the story list
@@ -26,19 +27,21 @@ export const Primary: Story = {
     },
     template: '<SimpleInput data-testid="input" v-model="args.modelValue" v-bind="args" />',
   }),
+  args: {
+    identifier: 'test',
+    placeholder: 'Enter your text here',
+  },
   play: async ({ canvasElement, args }) => {
     const input = canvasElement.querySelector('input');
 
+    await expect(input.placeholder).toEqual(args.placeholder);
     await expect(args.modelValue).toEqual('');
     await userEvent.type(input, 'Hello, World!');
     await expect(args.modelValue).toEqual('Hello, World!');
   },
-  args: {
-    identifier: 'test',
-  },
 };
 
-export const WithError: Story = {
+export const Error: Story = {
   ...Primary,
   args: {
     error: 'This is a test error message',
@@ -53,5 +56,41 @@ export const WithError: Story = {
     );
 
     await Primary.play?.(context);
+  },
+};
+
+export const Explanation: Story = {
+  ...Primary,
+  args: {
+    explanation: 'This is a test explanation message',
+  },
+  play: async ({ canvasElement, args, context }) => {
+    await expect(within(canvasElement).getByTitle(args.explanation)).toBeInTheDOM();
+
+    await Primary.play?.(context);
+  },
+};
+
+export const Warning: Story = {
+  ...Primary,
+  args: {
+    warning: 'This is a test warning message',
+  },
+  play: async ({ canvasElement, args, context }) => {
+    await expect(within(canvasElement).getByTitle(args.warning)).toBeInTheDOM();
+
+    await Primary.play?.(context);
+  },
+};
+
+export const InfoError: Story = {
+  ...Error,
+  args: {
+    ...Error.args,
+    ...Explanation.args,
+  },
+  play: async ({ context }) => {
+    await Explanation.play?.(context);
+    await Error.play?.(context);
   },
 };
