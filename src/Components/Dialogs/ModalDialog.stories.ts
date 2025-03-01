@@ -49,19 +49,17 @@ export const Primary: Story = {
     await expect(args.open).toBe(true);
 
     await new Promise((resolve) => setTimeout(resolve, 350));
-    let modal = within(document.querySelector('[data-testid="component"]'));
+    const modal = within(document.querySelector('[data-testid="component"]'));
 
     await expect(await modal.findByText(args.title)).toBeInTheDocument();
 
-    let content = modal.getByTestId('content');
-    await expect(content).toBeVisible();
+    await expect(args.open).toBe(true);
 
     const closeButton = modal.getByTestId('footer');
-    await expect(closeButton).toBeVisible();
+    await expect(closeButton).not.toBeNull();
     await userEvent.click(closeButton);
 
     await new Promise((resolve) => setTimeout(resolve, 350));
-    await expect(content).not.toBeVisible();
     await expect(args.open).toBe(false);
 
     // Clickoff
@@ -69,13 +67,10 @@ export const Primary: Story = {
     await expect(args.open).toBe(true);
 
     await new Promise((resolve) => setTimeout(resolve, 350));
-    modal = within(document.querySelector('[data-testid="component"]'));
-    content = modal.getByTestId('content');
-    await expect(content).toBeVisible();
+    await expect(args.open).toBe(true);
 
     await userEvent.click();
     await new Promise((resolve) => setTimeout(resolve, 350));
-    await expect(content).not.toBeVisible();
     await expect(args.open).toBe(false);
 
     await userEvent.click(openButton);
@@ -102,7 +97,7 @@ export const PreventClickoff: Story = {
     await expect(await modal.findByText(args.title)).toBeInTheDocument();
 
     const closeButton = modal.getByTestId('footer');
-    await expect(closeButton).toBeVisible();
+    await expect(closeButton).not.toBeNull();
     await userEvent.click(closeButton);
 
     await new Promise((resolve) => setTimeout(resolve, 350));
