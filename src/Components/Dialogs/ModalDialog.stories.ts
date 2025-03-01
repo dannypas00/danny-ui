@@ -48,7 +48,7 @@ export const Primary: Story = {
     await userEvent.click(openButton);
     await expect(args.open).toBe(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 350));
     let modal = within(document.querySelector('[data-testid="component"]'));
 
     await expect(await modal.findByText(args.title)).toBeInTheDocument();
@@ -60,7 +60,7 @@ export const Primary: Story = {
     await expect(closeButton).toBeVisible();
     await userEvent.click(closeButton);
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 350));
     await expect(content).not.toBeVisible();
     await expect(args.open).toBe(false);
 
@@ -68,13 +68,13 @@ export const Primary: Story = {
     await userEvent.click(canvas.getByTestId('open-button'));
     await expect(args.open).toBe(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 350));
     modal = within(document.querySelector('[data-testid="component"]'));
     content = modal.getByTestId('content');
     await expect(content).toBeVisible();
 
     await userEvent.click();
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 350));
     await expect(content).not.toBeVisible();
     await expect(args.open).toBe(false);
 
