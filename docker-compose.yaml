@@ -1,0 +1,11 @@
+services:
+  storybook-test:
+    build:
+        context: .
+        dockerfile: .docker/storybook.Dockerfile
+    volumes:
+        - .:/app
+    depends_on:
+      - storybook
+    working_dir: /app
+    command: npx test-storybook --browsers chromium,firefox,webkit --url http://172.17.0.1:6006
