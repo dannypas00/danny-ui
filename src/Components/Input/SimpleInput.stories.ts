@@ -2,7 +2,7 @@ import { type Meta, type StoryObj } from '@storybook/vue3';
 
 import SimpleInput, { type SimpleInputProps } from './SimpleInput.vue';
 import { ref } from 'vue';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent } from '@storybook/test';
 
 const meta: Meta<typeof SimpleInput> = {
   component: SimpleInput,
@@ -24,8 +24,7 @@ export const Primary: Story = {
       args.modelValue = ref('');
       return { args };
     },
-    template:
-      '<SimpleInput data-testid="input" v-model="args.modelValue" v-bind="args" />',
+    template: '<SimpleInput data-testid="input" v-model="args.modelValue" v-bind="args" />',
   }),
   play: async ({ canvasElement, args }) => {
     const input = canvasElement.querySelector('input');
@@ -44,7 +43,7 @@ export const WithError: Story = {
   args: {
     error: 'This is a test error message',
   },
-  play: async ({ canvasElement, args, context }) => {
+  play: async ({ canvasElement, context }) => {
     const input = canvasElement.querySelector('input');
 
     await expect(input).toHaveAttribute('aria-invalid', 'true');

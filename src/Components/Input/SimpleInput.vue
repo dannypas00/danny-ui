@@ -39,8 +39,8 @@ export interface SimpleInputProps {
   error?: string;
 }
 
-withDefaults(defineProps<SimpleInputProps>(),{
-  type:  'text',
+withDefaults(defineProps<SimpleInputProps>(), {
+  type: 'text',
   autocomplete: 'off',
   required: false,
 });

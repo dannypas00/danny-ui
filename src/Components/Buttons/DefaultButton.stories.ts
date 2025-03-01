@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import DefaultButton from './DefaultButton.vue';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, within } from '@storybook/test';
 
 const meta: Meta<typeof DefaultButton> = {
   component: DefaultButton,
@@ -40,7 +40,7 @@ export const Secondary: Story = {
   args: {
     class: 'bg-gray-200',
     slot: 'Testlink',
-  }
+  },
 };
 
 export const LinkRole: Story = {
@@ -54,5 +54,5 @@ export const LinkRole: Story = {
 
     const button = canvas.getByRole('link');
     await expect(button).toHaveTextContent(args.slot);
-  }
+  },
 };

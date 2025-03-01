@@ -1,6 +1,9 @@
 // Buttons
-export { default as DefaultButton } from '@/Components/Buttons/DefaultButton.vue';
-export { default as IconButton, IconButtonProps } from '@/Components/Buttons/IconButton.vue';
+export {
+  default as DefaultButton,
+  type DefaultButtonProps,
+} from '@/Components/Buttons/DefaultButton.vue';
+export { default as IconButton, type IconButtonProps } from '@/Components/Buttons/IconButton.vue';
 
 // Inputs
-export { default as SimpleInput, SimpleInputProps } from '@/Components/Input/SimpleInput.vue';
+export { default as SimpleInput, type SimpleInputProps } from '@/Components/Input/SimpleInput.vue';
