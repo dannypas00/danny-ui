@@ -10,13 +10,10 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon, type FontAwesomeIconProps } from '@fortawesome/vue-fontawesome';
-import { type PropType } from 'vue';
-import { type IconProps } from '@/types/IconProps';
 
-defineProps({
-  icon: {
-    type: Object as PropType<IconProps | FontAwesomeIconProps>,
-    required: true,
-  },
-});
+export interface IconButtonProps {
+  icon: FontAwesomeIconProps;
+}
+
+defineProps<IconButtonProps>();
 </script>

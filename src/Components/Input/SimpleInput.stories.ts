@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/vue3';
 
-import SimpleInput from './SimpleInput.vue';
+import SimpleInput, { type SimpleInputProps } from './SimpleInput.vue';
 import { ref } from 'vue';
 import { expect, userEvent, within } from '@storybook/test';
 
@@ -18,23 +18,21 @@ type Story = StoryObj<typeof SimpleInput>;
  * to learn how to use render functions.
  */
 export const Primary: Story = {
-  render: (args) => ({
+  render: (args: SimpleInputProps) => ({
     components: { SimpleInput },
     setup() {
-      const value = ref('');
-      return { args, value };
+      args.modelValue = ref('');
+      return { args };
     },
     template:
-      '<SimpleInput :identifier="args.identifier" v-model="value" v-bind="args" />' +
-      '<span data-testid="test">{{ value }}</span>',
+      '<SimpleInput data-testid="input" v-model="args.modelValue" v-bind="args" />',
   }),
-  play: async ({ canvasElement }) => {
-    const input = canvasElement.querySelector('input') as HTMLInputElement;
-    const output = within(canvasElement).getByTestId('test');
+  play: async ({ canvasElement, args }) => {
+    const input = canvasElement.querySelector('input');
 
-    await expect(output).toBeEmptyDOMElement();
+    await expect(args.modelValue).toEqual('');
     await userEvent.type(input, 'Hello, World!');
-    await expect(output).toHaveTextContent('Hello, World!');
+    await expect(args.modelValue).toEqual('Hello, World!');
   },
   args: {
     identifier: 'test',
@@ -46,7 +44,7 @@ export const WithError: Story = {
   args: {
     error: 'This is a test error message',
   },
-  play: async ({ canvasElement, context }) => {
+  play: async ({ canvasElement, args, context }) => {
     const input = canvasElement.querySelector('input');
 
     await expect(input).toHaveAttribute('aria-invalid', 'true');

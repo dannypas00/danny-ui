@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import IconButton from './IconButton.vue';
+import IconButton, { IconButtonProps } from './IconButton.vue';
 import { expect, within } from '@storybook/test';
 import type { FontAwesomeIconProps } from '@fortawesome/vue-fontawesome';
 
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof IconButton>;
  * to learn how to use render functions.
  */
 export const Primary: Story = {
-  render: (args) => ({
+  render: (args: IconButtonProps) => ({
     components: { IconButton },
     setup() {
       return { args };
@@ -39,7 +39,7 @@ export const Primary: Story = {
 
 export const NoText: Story = {
   ...Primary,
-  render: (args) => ({
+  render: (args: IconButtonProps) => ({
     components: { IconButton },
     setup() {
       return { args };

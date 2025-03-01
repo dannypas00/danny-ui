@@ -28,38 +28,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type InputTypeHTMLAttribute, type PropType } from 'vue';
+import { computed, type InputTypeHTMLAttribute } from 'vue';
 
-defineProps({
-  label: {
-    type: String,
-    required: false,
-    default: undefined,
-  },
-  identifier: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String as PropType<InputTypeHTMLAttribute>,
-    required: false,
-    default: 'text',
-  },
-  autocomplete: {
-    type: String,
-    required: false,
-    default: 'off',
-  },
-  required: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  error: {
-    type: String,
-    required: false,
-    default: undefined,
-  },
+export interface SimpleInputProps {
+  label?: string;
+  identifier: string;
+  type?: InputTypeHTMLAttribute;
+  autocomplete?: string;
+  required?: boolean;
+  error?: string;
+}
+
+withDefaults(defineProps<SimpleInputProps>(),{
+  type:  'text',
+  autocomplete: 'off',
+  required: false,
 });
 
 const modelValue = defineModel({ required: true });
